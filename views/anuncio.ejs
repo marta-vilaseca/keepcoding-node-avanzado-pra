@@ -1,26 +1,15 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <title><%= title %></title>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="/stylesheets/style.css" />
-  </head>
-  <body>
-    <header>
-      <h1><a href="/">Nodepop</a></h1>
-    </header>
+<%- include('header.ejs') %>
 
     <main>
       <section class="individual">
         <article class="producto">
           <span class="producto__precio"><%= anuncio.precio %>€</span>
           <div class="producto__info">
-            <span class="categoria"><%= anuncio.venta ? "Se vende" : "Se busca" %></span>
+            <span class="categoria"><%= anuncio.tipo ? __('For sale') : __('Wanted') %></span>
             <h3 title="<%= anuncio.nombre %>"><%= anuncio.nombre %></h3>
           </div>
           <div class="producto__detalles">
-            <div class="producto__foto"><img src="<%= '/images/' + anuncio.foto %>" alt="Imagen de <%= anuncio.nombre %>" /></div>
+            <div class="producto__foto"><img src="<%= '/images/' + anuncio.foto %>" alt="<% __('Photo of ') %><%= anuncio.nombre %>" /></div>
             <div class="producto__descripcion">
               <div class="texto"><%= anuncio.descripcion %></div>
               <ul class="tags">
@@ -33,5 +22,5 @@
         </article>
       </section>
     </main>
-  </body>
-</html>
+    
+<%- include('footer.ejs') %>

@@ -8,37 +8,38 @@ Desarrollar el API que se ejecutará en el servidor de un servicio de venta de a
 
 ## ✅ Tasklist v2
 
-- [ ] Autenticación
-    
+- [x] Autenticación
 - [ ] Internacionalización
 - [ ] Subida de imagen con tarea en background
 - [ ] Testing (opcional)
 
 ### 🔒 Autenticación
-- [ ] Implementar autenticación JWT al API (no es necesario hacerlo en el website)
-    - [ ] POST /api/authenticate para hacer login y devolver un token JWT
-    - [ ] GET /api/anuncios incluyendo el JWT en una cabecera o query-string hará la petición correcta (200 OK)
-    - [ ] GET /api/anuncios sin token responderá con un código de status HTTP 401 y un json con info del error
-    - [ ] GET /api/anuncios con un token caducado responderá con un código de status HTTP 401 y un json con info del error
-- [ ] El API tendrá al menos un usuario con email user@example.com y clave 1234
+
+- [x] Implementar autenticación JWT al API (no es necesario hacerlo en el website)
+  - [x] **POST** `/api/authenticate` para hacer login y devolver un token JWT
+  - [x] **GET** `/api/anuncios` incluyendo el JWT en una cabecera o query-string hará la petición correcta (200 OK)
+  - [x] **GET** `/api/anuncios` sin token responderá con un código de status HTTP 401 y un json con info del error
+  - [x] **GET** `/api/anuncios` con un token caducado responderá con un código de status HTTP 401 y un json con info del error
+- [x] El API tendrá al menos un usuario con email **user@example.com** y clave **1234**
 
 ### 🌍 Internacionalización
+
 - [ ] Convertir el frontend de Nodepop en multi-idioma (No es necesario internacionalizar el API)
 - [ ] Con selector de idioma donde el usuario pueda cambiar de un idioma a otro
 - [ ] Dos idiomas disponibles:
-    - [ ] Español
-    - [ ] Inglés
+  - [ ] Español
+  - [ ] Inglés
 
 ### 📷 Subida de imagen con tarea en background
-- [ ] El API necesita un endpoint para crear cnuncios
-    - [ ] POST /api/anuncios 
-    - [ ] Permite que el cliente del API suba una imagen y esta se guarde en el servidor
-        - [ ] Cuando hagamos las peticiones GET /api/anuncios nos son devueltas las rutas a éstas imágenes y éstas funcionan
-    - [ ] Cada imagen que se suba debe tener un thumbnail. Podemos hacer un microservicio que reciba trabajos (cote.js, RabbitMQ) creando dichos thumbnails:
-        - [ ] Elegir, instalar y probar un paquete que nos permita cambiar imágenes de tamaño en Node (por ejemplo: jimp)
-        - [ ] Hacer que el API mande un mensaje (con cote.js o con una cola de RabbitMQ) con la ruta del filesystem a la imagen
-        - [ ] Crear un worker que esté suscrito
 
+- [ ] El API necesita un endpoint para crear cnuncios
+  - [ ] POST /api/anuncios
+  - [ ] Permite que el cliente del API suba una imagen y esta se guarde en el servidor
+    - [ ] Cuando hagamos las peticiones GET /api/anuncios nos son devueltas las rutas a éstas imágenes y éstas funcionan
+  - [ ] Cada imagen que se suba debe tener un thumbnail. Podemos hacer un microservicio que reciba trabajos (cote.js, RabbitMQ) creando dichos thumbnails:
+    - [ ] Elegir, instalar y probar un paquete que nos permita cambiar imágenes de tamaño en Node (por ejemplo: jimp)
+    - [ ] Hacer que el API mande un mensaje (con cote.js o con una cola de RabbitMQ) con la ruta del filesystem a la imagen
+    - [ ] Crear un worker que esté suscrito
 
 ---
 
@@ -118,6 +119,7 @@ http://localhost:3000/:id
 ```
 
 ➜ Ejemplo: `http://localhost:3000/65e07cd8a31092a089d1f0fd`
+
 > [!NOTE]  
 > Las ID de los anuncios podemos obtenerlas (para poder introducirlas manualmente en nuestra URL) si interactuamos con la API y recibimos los datos de los anuncios en formato JSON. Sin embargo para facilitar las cosas, en el website para acceder a cada anuncio individual bastará con **clicar sobre su título o su foto**.
 
@@ -253,7 +255,7 @@ A través del **endpoint** `/api/anuncios` _(ruta completa `http://localhost:300
 - `limit` para determinar cuantos elementos queremos ver de una vez (por página)  
   ➜ Ejemplo: `http://localhost:3000/api/anuncios?limit=5` nos mostrará solo 5 elementos de una vez (por página)
 
-:small_orange_diamond: Para **ordenar** los resultados de acuerdo a un campo determinado. Podemos incluir **más de un campo** separándolos por espacios, o añadir un *'-'\_ como modificador para indicar orden descendiente.
+:small_orange_diamond: Para **ordenar** los resultados de acuerdo a un campo determinado. Podemos incluir **más de un campo** separándolos por espacios, o añadir un \*'-'\_ como modificador para indicar orden descendiente.
 
 ➜ Ejemplo: `http://localhost:3000/api/anuncios?sort=-precio` ordenamos por precio DESC  
 ➜ Ejemplo: `http://localhost:3000/api/anuncios?sort=-precio%20nombre` ordenamos por precio DESC y luego nombre ASC

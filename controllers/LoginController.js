@@ -21,7 +21,7 @@ class LoginController {
         expiresIn: "2h",
       });
 
-      res.json({ tokenJWT: tokenJWT });
+      res.json({ tokenJWT });
     } catch (error) {
       next(error);
     }

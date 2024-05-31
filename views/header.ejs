@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/stylesheets/style.css" />
+  </head>
+  <body>
+    <header>
+      <h1><a href="/">Nodepop</a></h1>
+      <nav>
+        <ul>
+          <li class="nav__item"><a href="/"><%= __('Browse all') %></a></li>
+          <li class="nav__item"><a href="/?tipo=venta"><%= __('For sale') %></a></li>
+          <li class="nav__item"><a href="/?tipo=busqueda"><%= __('Wanted') %></a></li>
+          <li class="nav__item"><a href="/tags"><%= __('Categories') %></a></li>
+          <li class="nav__lang">
+            <ul>
+              <% getLocales().forEach(locale => { %>
+              <li><a href="/change-locale/<%= locale %>" class="<%= locale === currentLocale ? 'active' : '' %>"><%= locale %></a></li>
+              <% }) %>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+    </header>

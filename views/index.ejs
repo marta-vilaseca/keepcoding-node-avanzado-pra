@@ -1,15 +1,4 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <title><%= title %></title>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="/stylesheets/style.css" />
-  </head>
-  <body>
-    <header>
-      <h1><a href="/">Nodepop</a></h1>
-    </header>
+<%- include('header.ejs') %>
 
     <main>
       <% if (anuncios && anuncios.length > 0) { %>
@@ -18,11 +7,11 @@
         <article class="producto">
           <span class="producto__precio"><%= anuncio.precio %>€</span>
           <div class="producto__info">
-            <span class="categoria"><%= anuncio.venta ? "Se vende" : "Se busca" %></span>
+            <span class="categoria"><%= anuncio.tipo ? __('For sale') : __('Wanted') %></span>
             <a href="<%= '/' + anuncio._id %>" title="<%= anuncio.nombre %>"><h3><%= anuncio.nombre %></h3></a>
           </div>
           <div class="producto__foto">
-            <a href="<%= '/' + anuncio._id %>"><img src="<%= '/images/' + anuncio.foto %>" alt="Imagen de <%= anuncio.nombre %>" /></a>
+            <a href="<%= '/' + anuncio._id %>"><img src="<%= '/images/' + anuncio.foto %>" alt="<% __('Photo of ') %><%= anuncio.nombre %>" /></a>
           </div>
           <ul class="tags">
             <% anuncio.tags.forEach(tag => { %>
@@ -33,8 +22,8 @@
         <% }); %>
       </section>
       <% } else { %>
-        <p class="mensaje-no-hay">No hay anuncios disponibles con los criterios especificados.</p>
-        <% } %>
+      <p class="mensaje-no-hay"><%= __('Error msg - no ads found') %></p>
+      <% } %>
     </main>
-  </body>
-</html>
+    
+<%- include('footer.ejs') %>
