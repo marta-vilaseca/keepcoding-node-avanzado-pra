@@ -3,6 +3,7 @@ const { validationResult } = require("express-validator");
 const Anuncio = require("../../models/Anuncio");
 const validation = require("../../lib/validation");
 const { buildFilter, buildOptions } = require("../../lib/queryHelpers");
+const upload = require("../../lib/publicUploadConfig");
 
 const router = express.Router();
 
@@ -41,13 +42,14 @@ router.get("/:id", validation.paramValidators, async (req, res, next) => {
 
 // POST /api/anuncios (body)
 // Crea un anuncio
-router.post("/", validation.bodyValidators, async (req, res, next) => {
+router.post("/", upload.single('foto'), validation.bodyValidators, async (req, res, next) => {
   try {
     validationResult(req).throw();
     const data = req.body;
 
     // creamos una instancia del anuncio  en memoria
     const anuncio = new Anuncio(data);
+    anuncio.foto = req.file.filename;
 
     // y lo persistimos en la BD
     const anuncioGuardado = await anuncio.save();

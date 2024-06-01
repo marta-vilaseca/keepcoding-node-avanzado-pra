@@ -9,7 +9,7 @@ Desarrollar el API que se ejecutará en el servidor de un servicio de venta de a
 ## ✅ Tasklist v2
 
 - [x] Autenticación
-- [ ] Internacionalización
+- [x] Internacionalización
 - [ ] Subida de imagen con tarea en background
 - [ ] Testing (opcional)
 
@@ -24,11 +24,11 @@ Desarrollar el API que se ejecutará en el servidor de un servicio de venta de a
 
 ### 🌍 Internacionalización
 
-- [ ] Convertir el frontend de Nodepop en multi-idioma (No es necesario internacionalizar el API)
-- [ ] Con selector de idioma donde el usuario pueda cambiar de un idioma a otro
-- [ ] Dos idiomas disponibles:
-  - [ ] Español
-  - [ ] Inglés
+- [x] Convertir el frontend de Nodepop en multi-idioma (No es necesario internacionalizar el API)
+- [x] Con selector de idioma donde el usuario pueda cambiar de un idioma a otro
+- [x] Dos idiomas disponibles:
+  - [x] Español
+  - [x] Inglés
 
 ### 📷 Subida de imagen con tarea en background
 

@@ -19,6 +19,9 @@ const anuncioSchema = mongoose.Schema({
       message: "Formato de imagen no válido. Formatos permitidos: jpg, jpeg, png, gif, webp",
     },
   },
+  thumbnail: {
+    type: String,
+  },
   tags: {
     type: [String],
     required: true,

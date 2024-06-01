@@ -6,5 +6,5 @@
 	"for": "para",
 	"Photo of ": "Imagen de ",
 	"Error msg - no ads found": "No hay anuncios disponibles con los criterios especificados.",
-	"Connected to MongoDB at": "Connected a MongoDB en"
+	"No token provided": "No token provided"
 }

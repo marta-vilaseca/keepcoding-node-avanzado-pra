@@ -11,7 +11,7 @@
             <a href="<%= '/' + anuncio._id %>" title="<%= anuncio.nombre %>"><h3><%= anuncio.nombre %></h3></a>
           </div>
           <div class="producto__foto">
-            <a href="<%= '/' + anuncio._id %>"><img src="<%= '/images/' + anuncio.foto %>" alt="<% __('Photo of ') %><%= anuncio.nombre %>" /></a>
+            <a href="<%= '/' + anuncio._id %>"><img src="<%= '/images/ads/' + anuncio.foto %>" alt="<% __('Photo of ') %><%= anuncio.nombre %>" /></a>
           </div>
           <ul class="tags">
             <% anuncio.tags.forEach(tag => { %>
