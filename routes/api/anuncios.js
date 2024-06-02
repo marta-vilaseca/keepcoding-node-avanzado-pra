@@ -1,10 +1,13 @@
 const express = require("express");
+const fs = require('fs');
+const path = require('path');
 const { validationResult } = require("express-validator");
 const Anuncio = require("../../models/Anuncio");
 const validation = require("../../lib/validation");
 const { buildFilter, buildOptions } = require("../../lib/queryHelpers");
 const upload = require("../../lib/publicUploadConfig");
-const createThumbnail = require('../../microservices/reqThumbnail')
+const createThumbnail = require('../../microservices/reqThumbnail');
+const deleteFileIfExists = require('../../lib/deleteFileIfExists');
 
 const router = express.Router();
 
@@ -64,17 +67,52 @@ router.post("/", upload.single('foto'), validation.bodyValidators, async (req, r
   }
 });
 
-// PATCH /api/nuncios/<_id> (body)
+// PATCH /api/anuncios/:id (body)
 // Actualiza un anuncio en base a su id
-router.patch("/:id", validation.paramValidators, async (req, res, next) => {
+router.patch("/:id", upload.single('foto'), validation.paramValidators, async (req, res, next) => {
   try {
     validationResult(req).throw();
     const id = req.params.id;
     const data = req.body;
 
+    const anuncio = await Anuncio.findById(id);
+    if (!anuncio) {
+      return res.status(404).json({ error: 'Anuncio no encontrado' });
+    }
+
+    if (req.file) {
+      if (anuncio.foto && anuncio.foto !== 'no-photo.png') {
+        const oldPhotoPath = path.join(__dirname, '..', '..', 'public', 'images', 'ads', anuncio.foto);
+        const oldThumbnailPath = path.join(__dirname, '..', '..', 'public', 'images', 'ads', 'thumbnails', `thumb-${anuncio.foto}`);
+
+        await deleteFileIfExists(oldPhotoPath);
+        await deleteFileIfExists(oldThumbnailPath);
+      }
+
+      data.foto = req.file.filename;
+    }
+
     const anuncioActualizado = await Anuncio.findByIdAndUpdate(id, data, { new: true });
 
-    res.json({ result: anuncioActualizado });
+    if (req.file) {
+      try {
+        await createThumbnail(anuncioActualizado.foto, anuncioActualizado._id);
+      } catch (thumbnailError) {
+        console.error("Error creating or updating thumbnail:", thumbnailError);
+        return res.status(500).json({ error: "Error updating thumbnail" });
+      }
+    }
+
+    // Timeout porque si no el res.json no mostraba la info actualizada
+    setTimeout(async () => {
+      try {
+        const anuncioFinalActualizado = await Anuncio.findById(anuncioActualizado._id);
+        res.json({ result: anuncioFinalActualizado });
+      } catch (finalFetchError) {
+        next(finalFetchError);
+      }
+    }, 1000); 
+
   } catch (error) {
     next(error);
   }
@@ -86,6 +124,19 @@ router.delete("/:id", validation.paramValidators, async (req, res, next) => {
   try {
     validationResult(req).throw();
     const id = req.params.id;
+
+    const anuncio = await Anuncio.findById(id);
+    if (!anuncio) {
+      return res.status(404).json({ error: 'Anuncio no encontrado' });
+    }
+
+    if (anuncio.foto && anuncio.foto !== 'no-photo.png') {
+      const photoPath = path.join(__dirname, '..', '..', 'public', 'images', 'ads', anuncio.foto);
+      const thumbnailPath = path.join(__dirname, '..', '..', 'public', 'images', 'ads', 'thumbnails', `thumb-${anuncio.foto}`);
+      
+      await deleteFileIfExists(photoPath);
+      await deleteFileIfExists(thumbnailPath);
+    }
 
     await Anuncio.deleteOne({ _id: id });
 

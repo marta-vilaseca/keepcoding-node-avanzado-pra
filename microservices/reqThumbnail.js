@@ -21,6 +21,7 @@ const createThumbnail = (fileName, id) => {
         }
         
         try {
+            console.log('RESULT ', result);
             await Anuncio.findByIdAndUpdate(id, { thumbnail: result });
             console.log('Thumbnail created and updated for ad:', id);
         } catch (err) {
