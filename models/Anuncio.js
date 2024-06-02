@@ -42,14 +42,6 @@ const anuncioSchema = mongoose.Schema({
   owner: { ref: "Usuario", type: mongoose.Schema.ObjectId },
 });
 
-// comprobamos que si no se ha proporcionado foto o el formato de la misma es erróneo, utilizamos una imagen por defecto
-anuncioSchema.pre("save", function (next) {
-  if (!this.foto || typeof this.foto !== "string") {
-    this.foto = "no-photo.png";
-  }
-  next();
-});
-
 // método listar
 anuncioSchema.statics.listar = function (filtro, options) {
   const query = Anuncio.find(filtro);

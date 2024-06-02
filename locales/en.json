@@ -6,5 +6,6 @@
 	"for": "for",
 	"Photo of ": "Photo of ",
 	"Error msg - no ads found": "No ads found with the specified criteria.",
-	"No token provided": "No token provided"
+	"No token provided": "No token provided",
+	"Invalid token": "Invalid token"
 }

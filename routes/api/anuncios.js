@@ -4,6 +4,7 @@ const Anuncio = require("../../models/Anuncio");
 const validation = require("../../lib/validation");
 const { buildFilter, buildOptions } = require("../../lib/queryHelpers");
 const upload = require("../../lib/publicUploadConfig");
+const createThumbnail = require('../../microservices/reqThumbnail')
 
 const router = express.Router();
 
@@ -49,10 +50,13 @@ router.post("/", upload.single('foto'), validation.bodyValidators, async (req, r
 
     // creamos una instancia del anuncio  en memoria
     const anuncio = new Anuncio(data);
-    anuncio.foto = req.file.filename;
+    anuncio.foto = req.file ? req.file.filename : 'no-photo.png';
 
     // y lo persistimos en la BD
     const anuncioGuardado = await anuncio.save();
+
+    // creamos thumbnail
+    createThumbnail(anuncio.foto, anuncioGuardado._id);
 
     res.json({ result: anuncioGuardado });
   } catch (error) {

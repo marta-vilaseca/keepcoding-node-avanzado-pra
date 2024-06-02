@@ -12,6 +12,10 @@ const LoginController = require("./controllers/LoginController");
 const langController = new LangController();
 const loginController = new LoginController();
 
+// test running microservices
+// const thumbnailReq = require('./microservices/reqThumbnail');
+// const thumbnailResp = require('./microservices/resThumbnail');
+
 require("./lib/connectMongoose");
 
 const app = express();
