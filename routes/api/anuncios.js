@@ -109,7 +109,8 @@ router.patch("/:id", upload.single('foto'), validation.paramValidators, async (r
       }
     }
 
-    // Timeout porque si no el res.json aparecía demasiado rápido y no mostraba el thumbnail actualizado, no he sabdido hacerlo de otra forma
+    // Timeout porque si no el res.json aparecía demasiado rápido y no mostraba 
+    // el thumbnail actualizado, no he sabido hacerlo de otra forma
     setTimeout(async () => {
       try {
         const anuncioFinalActualizado = await Anuncio.findById(anuncioActualizado._id);
@@ -117,7 +118,7 @@ router.patch("/:id", upload.single('foto'), validation.paramValidators, async (r
       } catch (finalFetchError) {
         next(finalFetchError);
       }
-    }, 1000); 
+    }, 2000); 
 
   } catch (error) {
     next(error);
