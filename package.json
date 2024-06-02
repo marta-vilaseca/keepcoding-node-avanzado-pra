@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "cross-env NODEAPP_ENV=production node ./bin/www",
+    "start": "concurrently 'cross-env NODEAPP_ENV=production node ./bin/www' 'node microservices/resThumbnail.js'",
     "dev": "concurrently 'cross-env NODEAPP_ENV=development DEBUG=nodeapp:* nodemon ./bin/www' 'node microservices/resThumbnail.js'",
     "initDB": "node initDB.js"
   },

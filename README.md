@@ -54,8 +54,17 @@ npm install
 ```sh
 node initDB.js
 ```
+✅ Abrimos nuestro directorio del repositorio y **creamos un archivo `.env`** donde deberemos **definir nuestras variables de entorno necesarias**. Podemos usar como base el archivo `.env.example` que se incluye en el repositorio:
+```
+MONGODB_URL=mongodb://127.0.0.1:27017/nodepop
+JWT_SECRET=
+```
+Únicamente deberemos asignar una cadena de texto cualquiera a la variable **JWT_SECRET**. Dicha cadena se usará para generar [nuestro token de autenticación](#large_orange_diamond-autenticación) y puede incluir letras, números y caracteres especiales (es buena idea utilizar un gestor de contraseñas para crearla)
 
-:arrow_forward: Una vez tenemos nuestra base de datos lista, ya podemos **inicializar nuestra aplicación**
+> [!CAUTION]  
+> **Este paso es muy importante** ya que sin nuestras variables de entorno nuestra aplicación no funcionará
+
+:arrow_forward: Una vez tenemos nuestra base de datos lista y las variables de entorno definidas, ya podemos **inicializar nuestra aplicación**
 
 💻 **`npm run dev`** para inicializar en **modo desarrollo**, en el cual:
 
