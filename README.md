@@ -21,7 +21,7 @@ Desarrollar el API que se ejecutará en el servidor de un servicio de venta de a
 - [Anexo: requisitos práctica según enunciado](#requisitos-v1)
 - [⭐ Anexo: novedades V2](#requisitos-v2)
 
-![Screenshot](/public/images/nodepop-screenshot.jpg)
+![Screenshot](/public/images/repo/nodepop-screenshot.jpg)
 
 ---
 
@@ -189,13 +189,13 @@ Dicho token **será válido durante dos horas** _(pasado ese tiempo será necesa
 Podremos incluir el token al hacer nuestras peticiones de cualquiera de estas tres maneras:
 
 ##### En el header
-![Screenshot](/public/images/token-header.jpg)
+![Screenshot](/public/images/repo/token-header.jpg)
 
 ##### En el body
-![Screenshot](/public/images/token-body.jpg)
+![Screenshot](/public/images/repo/token-body.jpg)
 
 ##### Como parámetro en el query
-![Screenshot](/public/images/token-params.jpg)
+![Screenshot](/public/images/repo/token-params.jpg)
 
 
 #### :large_orange_diamond: Para obtener anuncios (usando el método GET)

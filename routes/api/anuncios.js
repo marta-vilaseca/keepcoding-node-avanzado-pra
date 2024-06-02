@@ -49,10 +49,12 @@ router.post("/", upload.single('foto'), validation.bodyValidators, async (req, r
   try {
     validationResult(req).throw();
     const data = req.body;
+    const userId = req.apiUserId;
 
     // creamos una instancia del anuncio  en memoria
     const anuncio = new Anuncio(data);
     anuncio.foto = req.file ? req.file.filename : 'no-photo.png';
+    anuncio.owner = userId;
 
     // y lo persistimos en la BD
     const anuncioGuardado = await anuncio.save();
@@ -72,11 +74,16 @@ router.patch("/:id", upload.single('foto'), validation.paramValidators, async (r
   try {
     validationResult(req).throw();
     const id = req.params.id;
+    const userId = req.apiUserId;
     const data = req.body;
 
     const anuncio = await Anuncio.findById(id);
     if (!anuncio) {
       return res.status(404).json({ error: 'Anuncio no encontrado' });
+    }
+
+    if (userId !== anuncio.owner.toString()) {
+      return res.status(401).json({ error: 'Unauthorised' });
     }
 
     if (req.file) {
@@ -102,7 +109,7 @@ router.patch("/:id", upload.single('foto'), validation.paramValidators, async (r
       }
     }
 
-    // Timeout porque si no el res.json no mostraba la info actualizada
+    // Timeout porque si no el res.json aparecía demasiado rápido y no mostraba el thumbnail actualizado, no he sabdido hacerlo de otra forma
     setTimeout(async () => {
       try {
         const anuncioFinalActualizado = await Anuncio.findById(anuncioActualizado._id);
@@ -123,10 +130,15 @@ router.delete("/:id", validation.paramValidators, async (req, res, next) => {
   try {
     validationResult(req).throw();
     const id = req.params.id;
+    const userId = req.apiUserId;
 
     const anuncio = await Anuncio.findById(id);
     if (!anuncio) {
       return res.status(404).json({ error: 'Anuncio no encontrado' });
+    }
+
+    if (userId !== anuncio.owner.toString()) {
+      return res.status(401).json({ error: 'Unauthorised' });
     }
 
     if (anuncio.foto && anuncio.foto !== 'no-photo.png') {
