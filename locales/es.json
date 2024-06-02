@@ -5,7 +5,7 @@
 	"For sale": "Se vende",
 	"for": "para",
 	"Photo of ": "Imagen de ",
-	"Error msg - no ads found": "No hay anuncios disponibles con los criterios especificados.",
+	"No ads found with the specified criteria.": "No hay anuncios disponibles con los criterios especificados.",
 	"No token provided": "No se ha proporcionado un token",
 	"Invalid token": "Token no válido"
 }

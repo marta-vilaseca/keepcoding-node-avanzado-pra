@@ -4,11 +4,12 @@
   "private": true,
   "scripts": {
     "start": "cross-env NODEAPP_ENV=production node ./bin/www",
-    "dev": "cross-env NODEAPP_ENV=development DEBUG=nodeapp:* nodemon ./bin/www ./microservices/reqThumbnail.js ./microservices/resThumbnail.js",
+    "dev": "concurrently 'cross-env NODEAPP_ENV=development DEBUG=nodeapp:* nodemon ./bin/www' 'node microservices/resThumbnail.js'",
     "initDB": "node initDB.js"
   },
   "dependencies": {
     "bcrypt": "^5.1.1",
+    "concurrently": "^8.2.2",
     "cookie-parser": "~1.4.4",
     "cote": "^1.0.3",
     "cross-env": "^7.0.3",

@@ -5,7 +5,7 @@ const { Responder } = require('cote');
 const jimp = require("jimp");
 const path = require("path");
 
-const responder = new Responder({ name: 'Create Thumbnail'});
+const responder = new Responder({ name: 'Responder - Create Thumbnail'});
 
 console.log('Responder service started and listening for create-thumbnail events'); 
 
@@ -13,7 +13,7 @@ responder.on('create-thumbnail', async (req, done) => {
     const filePath = path.join(__dirname, '..', 'public', 'images', 'ads', req.fileName);
 
     const thumbnailName = `thumb-${req.fileName}`;
-    const thumbnailPath = path.join(__dirname, '..', 'public', 'images', 'ads', thumbnailName);
+    const thumbnailPath = path.join(__dirname, '..', 'public', 'images', 'ads', 'thumbnails', thumbnailName);
 
     // console.log('Received event to create thumbnail:', req.fileName);
 

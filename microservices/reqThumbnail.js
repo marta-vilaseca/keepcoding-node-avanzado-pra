@@ -4,7 +4,7 @@
 const { Requester } = require('cote');
 const Anuncio = require('../models/Anuncio')
 
-const requester = new Requester({ name: 'Requester - thumbnail'});
+const requester = new Requester({ name: 'Requester - Thumbnail'});
 
 console.log('Requester service started');
 
